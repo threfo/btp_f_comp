@@ -4,9 +4,9 @@ import router from "./router";
 
 import "./assets/markdown.css";
 
-import BitComp from "../packages";
+import BtpComp from "../packages";
 import Preview from "./components/Preview.vue";
 
 const app = createApp(App);
 app.component("Preview", Preview);
-app.use(BitComp).use(router).mount("#app");
+app.use(BtpComp).use(router).mount("#app");

@@ -9,7 +9,7 @@ export default defineConfig({
     outDir: "dist",
     lib: {
       entry: resolve(__dirname, "../packages/index.ts"),
-      name: "BitComp",
+      name: "BtpComp",
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
