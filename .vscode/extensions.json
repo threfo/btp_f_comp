@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "johnsoncodehk.volar",
+    "octref.vetur",
+    "dariofuzinato.vue-peek",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "davidanson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
+    "mrmlnc.vscode-scss",
+    "orta.vscode-jest",
+    "bradlc.vscode-tailwindcss",
+    "think2011.vue-i18n"
+  ]
+}
