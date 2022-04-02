@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils/filter/utils/arrMap.ts arrMapFilter 1`] = `
+Array [
+  Object {
+    "disabled": false,
+    "label": "66666",
+    "url": "/",
+  },
+  Object {
+    "disabled": undefined,
+    "label": "2343",
+    "url": "/job",
+  },
+  Object {
+    "disabled": undefined,
+    "label": "2343",
+    "url": "http://baidu.com",
+  },
+]
+`;
+
+exports[`utils/filter/utils/arrMap.ts arrMapFilter 2`] = `
+Array [
+  Object {
+    "href": "http://www.baidu.com",
+    "info": Array [
+      Object {
+        "class": "xl:text-4xl text-3xl whitespace-pre-wrap font-semibold text-blue-300",
+        "html": "主文案",
+      },
+      Object {
+        "class": "xl:text-xl text-lg whitespace-pre-wrap font-semibold text-gray-500",
+        "html": "副文案",
+      },
+      Object {
+        "class": "whitespace-pre-wrap font-semibold text-gray-800",
+        "html": "内容描述",
+      },
+    ],
+  },
+  Object {
+    "href": "http://www.baidu.com",
+    "info": Array [
+      Object {
+        "class": "xl:text-4xl text-3xl whitespace-pre-wrap font-semibold text-blue-300",
+        "html": "主文案",
+      },
+      Object {
+        "class": "whitespace-pre-wrap font-semibold text-gray-800",
+        "html": "内容描述",
+      },
+    ],
+  },
+]
+`;

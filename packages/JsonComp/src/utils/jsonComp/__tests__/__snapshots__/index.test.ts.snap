@@ -1,0 +1,340 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils/jsonComp/index.ts formatValue 1`] = `
+Object {
+  "html": "this is a: 2",
+  "is": "test",
+  "props": Object {
+    "e": "this is c: 4",
+    "f": Object {
+      "g": "this is b: 5",
+    },
+  },
+}
+`;
+
+exports[`utils/jsonComp/index.ts formatValue 2`] = `
+Object {
+  "is": "test",
+  "props": Object {
+    "c": 4,
+  },
+}
+`;
+
+exports[`utils/jsonComp/index.ts formatValue 3`] = `
+Object {
+  "is": "test",
+  "props": undefined,
+}
+`;
+
+exports[`utils/jsonComp/index.ts formatValue 4`] = `
+Object {
+  "children": Array [
+    Object {
+      "data": Object {
+        "__item": 1,
+      },
+      "html": "$__item",
+      "is": "test",
+    },
+    Object {
+      "data": Object {
+        "__item": 2,
+      },
+      "html": "$__item",
+      "is": "test",
+    },
+  ],
+  "is": "div",
+}
+`;
+
+exports[`utils/jsonComp/index.ts formatValue 5`] = `
+Object {
+  "children": Array [
+    Object {
+      "is": "JsonComp",
+      "props": Object {
+        "parentData": Object {
+          "a": Array [
+            1,
+            2,
+          ],
+        },
+        "value": Object {
+          "data": Object {
+            "__item": 1,
+          },
+          "html": "$__item",
+          "is": "test",
+        },
+      },
+    },
+    Object {
+      "is": "JsonComp",
+      "props": Object {
+        "parentData": Object {
+          "a": Array [
+            1,
+            2,
+          ],
+        },
+        "value": Object {
+          "data": Object {
+            "__item": 2,
+          },
+          "html": "$__item",
+          "is": "test",
+        },
+      },
+    },
+  ],
+  "is": "test",
+}
+`;
+
+exports[`utils/jsonComp/index.ts formatValue 6`] = `
+Object {
+  "children": Array [
+    Object {
+      "is": "JsonComp",
+      "props": Object {
+        "parentData": Object {
+          "showLabel": "test",
+          "showValue": "testValue",
+        },
+        "value": Object {
+          "children": Array [
+            Object {
+              "html": "\${showLabel}\${showValue ? '：' : ''}\${showValue}",
+              "is": "div",
+            },
+          ],
+          "is": "div",
+        },
+      },
+    },
+  ],
+  "is": "el-dropdown",
+  "slotArr": Array [
+    Object {
+      "slot": "dropdown",
+      "value": Object {
+        "children": Array [
+          Object {
+            "html": "ada",
+            "is": "el-dropdown-item",
+          },
+        ],
+        "data": undefined,
+        "is": "el-dropdown-menu",
+      },
+    },
+  ],
+}
+`;
+
+exports[`utils/jsonComp/index.ts getChildren 1`] = `Array []`;
+
+exports[`utils/jsonComp/index.ts getChildren 2`] = `
+Array [
+  Object {
+    "is": "JsonComp",
+    "props": Object {
+      "parentData": Object {
+        "a": Array [
+          1,
+          2,
+        ],
+      },
+      "value": Object {
+        "data": Object {
+          "__item": 1,
+        },
+        "html": "$__item",
+        "is": "test",
+      },
+    },
+  },
+  Object {
+    "is": "JsonComp",
+    "props": Object {
+      "parentData": Object {
+        "a": Array [
+          1,
+          2,
+        ],
+      },
+      "value": Object {
+        "data": Object {
+          "__item": 2,
+        },
+        "html": "$__item",
+        "is": "test",
+      },
+    },
+  },
+]
+`;
+
+exports[`utils/jsonComp/index.ts getChildren 3`] = `
+Array [
+  Object {
+    "is": "test",
+    "props": Object {
+      "a": Array [
+        1,
+        2,
+      ],
+    },
+  },
+]
+`;
+
+exports[`utils/jsonComp/index.ts getChildren 4`] = `
+Array [
+  Object {
+    "is": "JsonComp",
+    "props": Object {
+      "parentData": Object {
+        "a": Array [
+          1,
+          2,
+        ],
+      },
+      "value": Object {
+        "html": "1",
+        "is": "test",
+      },
+    },
+  },
+  Object {
+    "is": "JsonComp",
+    "props": Object {
+      "parentData": Object {
+        "a": Array [
+          1,
+          2,
+        ],
+      },
+      "value": Object {
+        "html": "2",
+        "is": "test",
+      },
+    },
+  },
+  Object {
+    "is": "JsonComp",
+    "props": Object {
+      "parentData": Object {
+        "a": Array [
+          1,
+          2,
+        ],
+      },
+      "value": Object {
+        "children": Array [
+          Object {
+            "html": "$__item",
+            "is": "test",
+          },
+        ],
+        "data": Object {
+          "__item": 1,
+        },
+        "is": "test",
+      },
+    },
+  },
+  Object {
+    "is": "JsonComp",
+    "props": Object {
+      "parentData": Object {
+        "a": Array [
+          1,
+          2,
+        ],
+      },
+      "value": Object {
+        "children": Array [
+          Object {
+            "html": "$__item",
+            "is": "test",
+          },
+        ],
+        "data": Object {
+          "__item": 2,
+        },
+        "is": "test",
+      },
+    },
+  },
+]
+`;
+
+exports[`utils/jsonComp/index.ts getForLoopList 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "__item": Object {
+        "title": "a",
+      },
+    },
+    "is": "div",
+  },
+  Object {
+    "data": Object {
+      "__item": Object {
+        "title": "$b",
+      },
+    },
+    "is": "div",
+  },
+]
+`;
+
+exports[`utils/jsonComp/index.ts getForLoopList 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "aa": Object {
+        "title": "a",
+      },
+    },
+    "is": "div",
+  },
+  Object {
+    "data": Object {
+      "aa": Object {
+        "title": "b1",
+      },
+    },
+    "is": "div",
+  },
+]
+`;
+
+exports[`utils/jsonComp/index.ts getForLoopList 3`] = `
+Array [
+  Object {
+    "data": Object {
+      "__item": Object {
+        "title": "a",
+      },
+      "title": "a",
+    },
+    "is": "div",
+  },
+  Object {
+    "data": Object {
+      "__item": Object {
+        "title": "$b",
+      },
+      "title": "b1",
+    },
+    "is": "div",
+  },
+]
+`;

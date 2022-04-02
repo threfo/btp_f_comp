@@ -1,8 +1,14 @@
 [
-    {
-      "compName": "Button",
-      "compZhName": "按钮",
-      "compDesc": "这是一个按钮",
-      "compClassName": "button"
-    }
-  ]
+  {
+    "compName": "Button",
+    "compZhName": "按钮",
+    "compDesc": "这是一个按钮",
+    "compClassName": "button"
+  },
+  {
+    "compName": "JsonComp",
+    "compZhName": "低代码组件",
+    "compDesc": "通过json描述及调用任意组件",
+    "compClassName": "json-comp"
+  }
+]

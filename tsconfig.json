@@ -14,7 +14,8 @@
     "skipLibCheck": true,
     "paths": {
       "packages/*": ["./packages/*"]
-    }
+    },
+    "types": ["@types/node", "@types/lodash", "@types/jest"]
   },
   "include": [
     "src/**/*.ts",

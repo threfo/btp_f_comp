@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils/filter/utils/arrFilter.ts fn match 1`] = `
+Array [
+  "2",
+]
+`;
+
+exports[`utils/filter/utils/arrFilter.ts fn match 2`] = `
+Array [
+  "1",
+  "2",
+]
+`;
+
+exports[`utils/filter/utils/arrFilter.ts fn match 3`] = `
+Array [
+  "2",
+  "3",
+]
+`;
+
+exports[`utils/filter/utils/arrFilter.ts fn notMatch 1`] = `
+Array [
+  "1",
+]
+`;
+
+exports[`utils/filter/utils/arrFilter.ts fn notMatch 2`] = `
+Array [
+  "1",
+]
+`;
