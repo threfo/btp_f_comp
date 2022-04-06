@@ -1,11 +1,15 @@
 <template>
-  <button class="btp-button" @click="$emit('click', $event)">
-    <slot></slot>
-  </button>
+  <div class="btp-button">我是按钮组件</div>
 </template>
 
-<script lang="ts" setup>
-defineEmits(["click"]);
+<script lang="ts">
+import { defineComponent } from "vue-demi";
+export default defineComponent({
+  name: "Button",
+  setup(props, { emit }) {
+    return {};
+  },
+});
 </script>
 
 <style scoped>

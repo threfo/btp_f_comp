@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite --config ./build/base.config.ts",
     "build:doc": "vue-tsc --noEmit && vite build --config ./build/doc.config.ts && node script/copyDir.js",
+    "build:doc2": "vue-tsc --noEmit && vite build --config ./build/doc.config.ts && node script/copyDir.js --v=2",
     "build:lib": "vue-tsc --noEmit && vite build --config ./build/lib.config.ts",
     "gen": "node ./script/genNewComp/index.js"
   },
@@ -27,5 +28,17 @@
     "vite-plugin-md": "^0.11.4",
     "vue-router": "^4.0.12",
     "vue-tsc": "^0.29.8"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.1.0",
+    "vue": "^2.6.0 || ^3.2.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    },
+    "@vue/composition-api": {
+      "optional": true
+    }
   }
 }

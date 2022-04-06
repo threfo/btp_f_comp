@@ -4,7 +4,17 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+import { defineComponent } from 'vue-demi'
+export default defineComponent({
+  name: '{{ compName }}',
+  setup(props, { emit }) {
+
+    return {
+
+    }
+  }
+})
 
 </script>
 
