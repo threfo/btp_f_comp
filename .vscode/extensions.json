@@ -1,6 +1,7 @@
 {
+  // See http://go.microsoft.com/fwlink/?LinkId=827846
+  // for the documentation about the extensions.json format
   "recommendations": [
-    "johnsoncodehk.volar",
     "octref.vetur",
     "dariofuzinato.vue-peek",
     "dbaeumer.vscode-eslint",
@@ -8,8 +9,8 @@
     "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode",
     "mrmlnc.vscode-scss",
-    "orta.vscode-jest",
     "bradlc.vscode-tailwindcss",
-    "think2011.vue-i18n"
+    "streetsidesoftware.code-spell-checker",
+    "eamodio.gitlens"
   ]
 }

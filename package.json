@@ -1,33 +1,110 @@
 {
-  "name": "bto_f_comp",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite --config ./build/base.config.ts",
-    "build:doc": "vue-tsc --noEmit && vite build --config ./build/doc.config.ts && node script/copyDir.js",
-    "build:doc2": "vue-tsc --noEmit && vite build --config ./build/doc.config.ts && node script/copyDir.js --v=2",
-    "build:lib": "vue-tsc --noEmit && vite build --config ./build/lib.config.ts",
-    "gen": "node ./script/genNewComp/index.js"
+  "name": "@belloai/comp",
+  "version": "0.0.2",
+  "description": "",
+  "main": "./dist/btp_f_comp.umd.js",
+  "module": "./dist/btp_f_comp.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/btp_f_comp.es.js",
+      "require": "./dist/btp_f_comp.umd.js"
+    }
   },
-  "dependencies": {
-    "prismjs": "^1.25.0",
-    "vue": "^3.2.25",
-    "vue-demi": "^0.12.4"
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "author": "ThomasLiu",
+  "license": "MIT",
+  "scripts": {
+    "bootstrap": "pnpm install --ignore-scripts",
+    "dev": "vitepress-fc dev --root=docs --host",
+    "build": "vite build && pnpm run type",
+    "type": "vue-tsc --declaration --emitDeclarationOnly",
+    "test:2": "vue-demi-switch 2 vue2 && vitest run --silent",
+    "test:3": "vue-demi-switch 3 && vitest run",
+    "test": "pnpm run test:2 && pnpm run test:3",
+    "test:watch": "vitest --watch",
+    "docs-build": "rimraf docs/dist && cross-env NODE_ENV=production vitepress-fc build --root=docs",
+    "docs-serve": "cross-env NODE_ENV=production vitepress-fc serve --root=docs --port 8080",
+    "docs-build-serve": "cross-env NODE_ENV=true pnpm run docs-build && pnpm run docs-serve",
+    "docs-deploy": "gh-pages -d docs/dist -t true",
+    "docs-build-deploy": "pnpm run docs-build && pnpm run docs-deploy",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "lint": "pnpm eslint . --ext=js,ts,tsx,vue,md,json --fix",
+    "format": "prettier --write ./**/*.{vue,ts,tsx,js,jsx,css,less,scss,json,md}",
+    "ls-lint": "ls-lint",
+    "release": "np",
+    "gen": "node ./scripts/genNewComp/index.js"
   },
   "devDependencies": {
-    "@types/node": "^16.11.12",
-    "@vitejs/plugin-vue": "^2.2.0",
-    "fs-extra": "^10.0.0",
+    "@ls-lint/ls-lint": "^1.9.2",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "@vitejs/plugin-vue": "^1.1.4",
+    "@vitejs/plugin-vue-jsx": "^1.1.7",
+    "@vue/composition-api": "^1.4.9",
+    "@vue/test-utils": "^2.0.0-rc.19",
+    "@vuedx/typescript-plugin-vue": "^0.6.3",
+    "conventional-changelog-cli": "^2.1.1",
+    "cross-env": "^7.0.2",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-markdown": "^2.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "fs-extra": "^10.0.1",
+    "gh-pages": "^3.1.0",
     "handlebars": "^4.7.7",
-    "inquirer": "^8.2.0",
-    "less": "^4.1.2",
-    "typescript": "^4.5.4",
-    "vite": "^2.8.0",
-    "vite-plugin-copy": "^0.1.6",
-    "vite-plugin-dts": "^0.9.6",
-    "vite-plugin-md": "^0.11.4",
-    "vue-router": "^4.0.12",
-    "vue-tsc": "^0.29.8"
+    "husky": "^4.3.0",
+    "inquirer": "^8.2.2",
+    "jsdom": "^19.0.0",
+    "lint-staged": "^12.3.7",
+    "np": "^7.4.0",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.4.4",
+    "vite": "^2.6.13",
+    "vitepress-for-component": "^0.16.6",
+    "vitest": "^0.9.3",
+    "vue": "^3.0.0",
+    "vue-tsc": "^0.29.2",
+    "vue2": "npm:vue@2"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "components"
+  ],
+  "engines": {
+    "node": "^12 || >=14",
+    "pnpm": "^6 || >=5"
+  },
+  "resolutions": {
+    "bin-wrapper": "npm:bin-wrapper-china"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{html,css,less,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "vue-demi": "^0.12.5"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.1.0",

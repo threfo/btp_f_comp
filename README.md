@@ -1,32 +1,30 @@
-# btp_f_comp
+[![Unit Test](https://github.com/threfo/btp_f_comp/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/threfo/btp_f_comp/actions/workflows/test.yml)
 
-前端组件
+# @belloai/comp
 
-## startup
+build with [vitepress-for-component](https://github.com/dewfall123/vitepress-for-component)
 
-```bash
-yarn
-yarn gen # 进入交互式创建新组件
-yarn dev # 平时的开发调试
-```
-
-打包发布
+## Start up
 
 ```bash
-yarn build:lib # 打组件包
-yarn build:doc # 打文档包
+pnpm
+pnpm dev
+
+pnpm test # 跑测试
+
+
+pnpm build
+
+pnpm release # 发布到npm
+
+pnpm docs-build-serve # 文档系统的构建和web服务
+pnpm docs-build-deploy # 文档系统的构建和发布到github page
+
+pnpm changelog # 生成changelog
 ```
 
-## TODO
+## Todo List
 
-- [ ] 实用`vue-demi`实现 vue2 和 vue3 的兼容
-- [ ] 引入单测
-- [ ] 引入 changelog
-- [ ] 自动构建
-
-## 参考资料
-
-- [基于 Vite 搭建开发体验超级丝滑的 Vue3 组件库开发框架](https://juejin.cn/post/7040655239849967652)
-- [vue-demi](https://github.com/vueuse/vue-demi)
-- [玩转 vue-demi,打造 vue2/3 通用插件](https://juejin.cn/post/7055261325911719944)
-- [vue3-sketch-ruler](https://github.com/kakajun/vue3-sketch-ruler)
+[x] 基于[@vue/test-utils](https://test-utils.vuejs.org/guide/)的组件单元测试
+[x] 基于[vue-demi](https://github.com/vueuse/vue-demi)的 vue2 及 vue3 的兼容
+[x] vue2 及 vue3 的版本测试
