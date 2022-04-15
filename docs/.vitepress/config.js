@@ -22,8 +22,6 @@ module.exports = {
         lang: 'zh-CN',
         title: '@belloai/comp',
         description: '',
-        label: '中文',
-        selectText: '语言',
         nav: [
           { text: '介绍', link: '/' },
           { text: '组件', link: '/components/' }
@@ -36,25 +34,6 @@ module.exports = {
           }))
         ],
         editLinkText: '欢迎帮助我们改善页面!'
-      },
-      '/en/': {
-        lang: 'en-US',
-        title: '@belloai/comp',
-        description: '',
-        label: 'English',
-        selectText: 'Languages',
-        nav: [
-          { text: 'Guide', link: '/en/' },
-          { text: 'Components', link: '/en/components/' }
-        ],
-        sidebar: [
-          { text: 'Start up', link: '/en/components/' },
-          ...compList.map(({ compName }) => ({
-            text: compName,
-            link: `/en/components/${compName}/`
-          }))
-        ],
-        editLinkText: 'Edit this page!'
       }
     },
     search: {

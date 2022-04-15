@@ -5,7 +5,6 @@ const { resolve } = require('path')
 const compFilesTplReplacer = meta => {
   const files = [
     'index.zh-CN.md',
-    'index.en-US.md',
     'index.vue',
     'index.test.ts',
     'demo/BaseDemo.vue'
