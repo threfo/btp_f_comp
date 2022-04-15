@@ -1,6 +1,7 @@
 <template>
   <div class="btp-textarea-symbol">
-    <slot></slot>
+    特殊符号提示输入框:
+    当输入定义的特殊符号时会把符号后的内容请求对应的api提供内容选择
   </div>
 </template>
 

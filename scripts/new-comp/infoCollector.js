@@ -16,6 +16,7 @@ const kebabCase = string =>
     .replace(/[\s_]+/g, '-')
     .toLowerCase()
 
+// https://github.com/SBoudrias/Inquirer.js
 module.exports = async () => {
   const meta = await inquirer.prompt([
     {

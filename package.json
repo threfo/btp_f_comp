@@ -36,7 +36,8 @@
     "format": "prettier --write ./**/*.{vue,ts,tsx,js,jsx,css,less,scss,json,md}",
     "ls-lint": "ls-lint",
     "release": "np",
-    "gen": "node ./scripts/genNewComp/index.js"
+    "new-comp": "node ./scripts/new-comp/index.js",
+    "del-comp": "node ./scripts/del-comp/index.js"
   },
   "devDependencies": {
     "@ls-lint/ls-lint": "^1.9.2",

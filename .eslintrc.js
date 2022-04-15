@@ -61,11 +61,15 @@ module.exports = {
       }
     ]
   },
-  ignorePatterns: [
-    'node_modules/',
-    'dist/',
-    'coverage/',
-    'pnpm-lock.yaml',
-    'scripts/'
-  ]
+  overrides: [
+    {
+      files: ['scripts/**/*.js'],
+      rules: {
+        'no-restricted-globals': ['error', ...DOMGlobals],
+        '@typescript-eslint/no-var-requires': 'off',
+        'no-undef': 'error'
+      }
+    }
+  ],
+  ignorePatterns: ['node_modules/', 'dist/', 'coverage/', 'pnpm-lock.yaml']
 }
