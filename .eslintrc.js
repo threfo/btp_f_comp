@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-restricted-globals */
-
 // const { resolve } = require('path')
 const DOMGlobals = ['window', 'document']
 const NodeGlobals = ['module', 'require']
@@ -32,12 +30,8 @@ module.exports = {
   },
   plugins: ['vue', 'prettier', '@typescript-eslint'],
   rules: {
-    'no-unused-vars': [
-      'error',
-      // we are only using this rule to check for unused arguments since TS
-      // catches unused variables but not args.
-      { varsIgnorePattern: '.*', args: 'none' }
-    ],
+    'no-var': 'error',
+    'no-undef': 'error',
     // most of the codebase are expected to be env agnostic
     'no-restricted-globals': ['error', ...DOMGlobals, ...NodeGlobals],
     // since we target ES2015 for baseline support, we need to forbid object
@@ -59,15 +53,41 @@ module.exports = {
           }
         ]
       }
-    ]
+    ],
+    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-explicit-any': 'off'
   },
   overrides: [
     {
       files: ['scripts/**/*.js'],
       rules: {
         'no-restricted-globals': ['error', ...DOMGlobals],
-        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-var-requires': 'off'
+      }
+    },
+    {
+      files: ['*.md'],
+      rules: {
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-var-requires': 'off'
+      }
+    },
+    {
+      files: ['*.test.ts'],
+      rules: {
         'no-undef': 'error'
+      },
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly'
+      }
+    },
+    {
+      files: ['*.vue'],
+      rules: {
+        'no-restricted-globals': ['error', ...NodeGlobals]
       }
     }
   ],

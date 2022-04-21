@@ -25,7 +25,8 @@
     "rootDir": ".",
     "paths": {
       "@/*": ["src/*"],
-      "btp_f_comp": ["src/"]
+      "btp_f_comp": ["src/"],
+      "@belloai/comp": ["src/"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.vue"],

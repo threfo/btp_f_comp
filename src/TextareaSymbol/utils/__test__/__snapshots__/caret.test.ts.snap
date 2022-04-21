@@ -1,0 +1,21 @@
+// Vitest Snapshot v1
+
+exports[`src/TextareaSymbol/utils/caret.ts > getOffset 1`] = `
+{
+  "arg1": {
+    "arg1": {
+      "document": {},
+      "pageXOffset": 3,
+      "pageYOffset": 2,
+    },
+    "endContainer": "endContainer",
+    "endOffset": 2,
+    "type": "_initRange",
+  },
+  "arg2": {},
+  "height": 1,
+  "left": 8,
+  "top": 6,
+  "type": "_getHeight0Offset",
+}
+`;
