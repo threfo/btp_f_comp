@@ -35,7 +35,7 @@
     "lint": "pnpm eslint . --ext=js,ts,tsx,vue,md,json --fix",
     "format": "prettier --write ./**/*.{vue,ts,tsx,js,jsx,css,less,scss,json,md}",
     "ls-lint": "ls-lint",
-    "release": "np",
+    "release": "pnpm build && pnpm run docs-build-deploy && np",
     "new-comp": "node ./scripts/new-comp/index.js",
     "del-comp": "node ./scripts/del-comp/index.js"
   },
