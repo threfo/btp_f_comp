@@ -1,6 +1,6 @@
 {
   "name": "@belloai/comp",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "./dist/btp_f_comp.umd.js",
   "module": "./dist/btp_f_comp.es.js",
