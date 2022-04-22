@@ -150,16 +150,19 @@ export default comp
 
 <style lang="scss">
 .btp-textarea-symbol__editor {
+  button {
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
   button,
   button:hover {
     padding: 0.125rem;
     border: none;
     font-weight: 600;
     color: #409eff;
-    max-width: 10rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 </style>
