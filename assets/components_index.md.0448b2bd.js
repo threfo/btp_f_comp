@@ -1,1 +1,0 @@
-import{_ as e,c as t,o,b as n}from"./plugin-vue_export-helper.3040ba4e.js";const a={components:{}},u='{"title":"","description":"","frontmatter":{},"relativePath":"components/index.md","lastUpdated":1650529865628}',s=n("p",null,"Comp info",-1),c=[s];function r(p,_,d,i,l,m){return o(),t("div",null,c)}var x=e(a,[["render",r]]);export{u as __pageData,x as default};
