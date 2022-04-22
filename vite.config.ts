@@ -1,4 +1,5 @@
-// yarn build 用到的vite配置
+// pnpm build 用到的vite配置
+// 所有的配置 https://cn.vitejs.dev/config/
 
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
