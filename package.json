@@ -2,12 +2,12 @@
   "name": "@belloai/comp",
   "version": "0.0.4",
   "description": "",
-  "main": "./dist/btp-f-comp.umd.js",
-  "module": "./dist/btp-f-comp.es.js",
+  "main": "./dist/comp.umd.js",
+  "module": "./dist/comp.es.js",
   "exports": {
     ".": {
-      "import": "./dist/btp-f-comp.es.js",
-      "require": "./dist/btp-f-comp.umd.js"
+      "import": "./dist/comp.es.js",
+      "require": "./dist/comp.umd.js"
     }
   },
   "types": "dist/src/index.d.ts",
