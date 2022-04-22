@@ -63,6 +63,7 @@
     "inquirer": "^8.2.2",
     "jsdom": "^19.0.0",
     "lint-staged": "^12.3.7",
+    "mkdir-file-tree-md": "^1.0.1",
     "np": "^7.4.0",
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",

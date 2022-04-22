@@ -27,6 +27,7 @@ specifiers:
   inquirer: ^8.2.2
   jsdom: ^19.0.0
   lint-staged: ^12.3.7
+  mkdir-file-tree-md: ^1.0.1
   np: ^7.4.0
   prettier: ^2.1.2
   rimraf: ^3.0.2
@@ -66,6 +67,7 @@ devDependencies:
   inquirer: 8.2.2
   jsdom: 19.0.0
   lint-staged: 12.3.7
+  mkdir-file-tree-md: 1.0.1
   np: 7.6.1
   prettier: 2.6.2
   rimraf: 3.0.2
@@ -3241,6 +3243,15 @@ packages:
       universalify: 2.0.0
     dev: true
 
+  /fs-extra/10.1.0:
+    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      graceful-fs: 4.2.10
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: true
+
   /fs-extra/8.1.0:
     resolution: {integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==}
     engines: {node: '>=6 <7 || >=8'}
@@ -4709,6 +4720,13 @@ packages:
 
   /minimist/1.2.6:
     resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
+    dev: true
+
+  /mkdir-file-tree-md/1.0.1:
+    resolution: {integrity: sha512-Lyvi0//Fz1oKI16zpACAFAoLxuzByP7YVNZ+9R9njz+E8Aiccf5XZ8Lvr06wEyobknmOfu6vQbik+aZyrGTaCQ==}
+    engines: {node: ^12 || >=14, pnpm: ^6 || >=5}
+    dependencies:
+      fs-extra: 10.1.0
     dev: true
 
   /mkdirp/0.5.6:
