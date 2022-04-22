@@ -11,6 +11,10 @@ import { defineConfig } from 'vite'
  */
 export default defineConfig({
   plugins: [vue(), vueJsx()],
+  optimizeDeps: {
+    include: [],
+    exclude: ['vue-demi']
+  },
   build: {
     minify: true,
     lib: {
@@ -20,7 +24,7 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['vue'],
+      external: ['vue-demi', 'vue'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
