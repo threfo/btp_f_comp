@@ -19,7 +19,7 @@ export default defineConfig({
     minify: true,
     lib: {
       entry: resolve('./src/index.ts'),
-      name: 'btp_f_comp'
+      name: 'btp-f-comp'
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
