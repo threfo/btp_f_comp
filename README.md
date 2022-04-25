@@ -105,9 +105,18 @@ pnpm changelog # 生成changelog
 - [x] 基于[@vue/test-utils](https://test-utils.vuejs.org/guide/)的组件单元测试
 - [x] 基于[vue-demi](https://github.com/vueuse/vue-demi)的 vue2 及 vue3 的兼容
 - [x] vue2 及 vue3 的版本测试
+- [] 按需加载时的样式自动引入，目前样式都是打成一个文件
 
 ## 相关资源
 
 - [vite](https://cn.vitejs.dev/) - vite 官方文档
 - [awesome-vite](https://github.com/vitejs/awesome-vite#plugins) - vite 相关的推荐内容
 - [fs](http://nodejs.cn/api/fs.html) - fs api
+
+## 其他
+
+[element-plus](https://github.dev/element-plus/element-plus) 的文件结构和我们很像，他们也是用 vite, vitest, pnpm 这些，但是他们没有用 vue-demi，感觉他们很多东西我们也还可以再借鉴，例如样式的隔离管理，变量化，组件的定义分离，setup 的应用等。
+
+## 设计思想
+
+- [按需打包 UI 组件库原理探究](https://juejin.cn/post/6942362094264287268)

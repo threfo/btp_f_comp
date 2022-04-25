@@ -8,8 +8,10 @@
     ".": {
       "import": "./dist/comp.es.js",
       "require": "./dist/comp.umd.js"
-    }
+    },
+    "./*": "./*"
   },
+  "style": "dist/index.css",
   "types": "dist/src/index.d.ts",
   "files": [
     "src",
