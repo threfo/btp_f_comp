@@ -1,52 +1,15 @@
-<template>
-  <div ref="symbolEditorEle" class="btp-textarea-symbol">
-    <div
-      ref="editorEle"
-      class="btp-textarea-symbol__editor"
-      :contenteditable="true"
-      @keyup="onInputText"
-      @keydown="onInputKeyDown"
-      @blur="onCloseDropdown"
-      @mouseup="doToggleDropdown"
-      @paste="doOnPaste"
-      @compositionstart="onCompositionStart"
-      @compositionend="onCompositionEnd"
-    ></div>
-    <div
-      ref="dropdownEle"
-      class="btp-textarea-symbol__dropdown"
-      :style="[
-        dropdownPos,
-        { visibility: isShowDropdown ? 'visible' : 'hidden' }
-      ]"
-      @mousedown.stop.prevent
-    >
-      <div class="btp-scrollbar">
-        <div class="btp-scrollbar__wrap btp-dropdown__wrap">
-          <ul class="btp-dropdown__list">
-            <li
-              v-for="(item, i) in list"
-              :key="item.id"
-              class="btp-dropdown__item"
-              :class="{ active: activeIndex == i }"
-              @mousedown="e => onLiMousedown(e, item)"
-            >
-              <component
-                :is="item.componentName"
-                v-if="item.componentName"
-                v-bind="item.componentProps"
-              />
-              <span v-else>{{ item.label }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts">
-import { defineComponent } from 'vue-demi'
+import {
+  defineComponent,
+  isVue2,
+  getCurrentInstance,
+  ref,
+  watch,
+  h,
+  withModifiers,
+  nextTick,
+  Ref
+} from 'vue-demi'
 
 import {
   onInputKeyDown,
@@ -60,7 +23,14 @@ import {
   initSymbolsPolicy
 } from './utils'
 
-import { DropdownListItem } from './utils/type'
+import {
+  DropdownListItem,
+  EditorValueItem,
+  SymbolsPolicy,
+  EditorRange,
+  DropdownPos,
+  SetupRef
+} from './utils/type'
 
 const comp = defineComponent({
   name: 'TextareaSymbol',
@@ -69,77 +39,219 @@ const comp = defineComponent({
       type: Array,
       required: true
     },
-    modelValue: {
-      type: Array,
-      default: () => []
-    }
+    ...(isVue2
+      ? {
+          value: {
+            type: Array,
+            default: () => []
+          }
+        }
+      : {
+          modelValue: {
+            type: Array,
+            default: () => []
+          }
+        })
   },
-  emits: ['update:modelValue'],
-  data() {
-    const list: DropdownListItem[] = []
+  setup(props, { emit }) {
+    const currentInstance = getCurrentInstance()
 
-    return {
+    const list: Ref<DropdownListItem[]> = ref([])
+    const activeIndex: Ref<number> = ref(0)
+    const dropdownPos: Ref<DropdownPos> = ref({})
+    const isShowDropdown: Ref<boolean> = ref(false)
+    const editorValue: Ref<EditorValueItem[]> = ref([])
+    const preventKeyUp: Ref<boolean> = ref(false)
+    const symbolsPolicy: Ref<SymbolsPolicy | null> = ref(null)
+    const editorRange: Ref<EditorRange> = ref(null)
+
+    const setupRef: SetupRef = {
       list,
-      activeIndex: 0,
-      dropdownPos: {},
-      isShowDropdown: false,
-      editorValue: []
+      activeIndex,
+      dropdownPos,
+      isShowDropdown,
+      editorValue,
+      preventKeyUp,
+      symbolsPolicy,
+      editorRange
     }
-  },
-  watch: {
-    modelValue: {
-      handler(newValue) {
-        // console.log('modelValue watch', newValue)
 
-        if (JSON.stringify(newValue) !== JSON.stringify(this.editorValue)) {
-          this.$nextTick(() => {
-            initEditorEle(this as any, window.document)
+    watch(
+      () => props[isVue2 ? 'value' : 'modelValue'],
+      newValue => {
+        if (JSON.stringify(newValue) !== JSON.stringify(editorValue.value)) {
+          nextTick(() => {
+            const value = props[isVue2 ? 'value' : 'modelValue']
+
+            initEditorEle({
+              value,
+              doc: window.document,
+              that: currentInstance,
+              setupRef
+            })
           })
         }
       },
-      immediate: true
-    },
-    editorValue: {
-      handler(newValue) {
-        this.$emit('update:modelValue', newValue)
+      {
+        immediate: true
       }
-    }
-  },
+    )
 
-  methods: {
-    doOnPaste(e: Event) {
-      doOnPaste(e, this as any, window)
-    },
-    onLiMousedown(e: Event, data: DropdownListItem) {
-      onLiMousedown({
+    watch(editorValue, newValue => {
+      emit(isVue2 ? 'update' : 'update:modelValue', newValue)
+    })
+
+    const onKeyup = e =>
+      onInputText({
         e,
-        data,
-        that: this as any,
-        win: window
+        that: currentInstance,
+        win: window,
+        props,
+        setupRef
       })
-    },
-    onInputText(e: Event) {
-      onInputText(e, this as any, window)
-    },
-    onInputKeyDown(e: Event) {
+    const onKeydown = e =>
       onInputKeyDown({
         e,
-        that: this as any,
-        win: window
+        that: currentInstance,
+        win: window,
+        setupRef
       })
-    },
-    onCloseDropdown() {
-      onCloseDropdown(this as any)
-    },
-    doToggleDropdown() {
-      doToggleDropdown(this as any, window)
-    },
-    onCompositionStart() {
-      console.log('正在输入中文')
-    },
-    onCompositionEnd() {
-      onCompositionEnd(this as any, window)
-    }
+    const onBlur = () => onCloseDropdown(setupRef)
+    const onMouseup = () =>
+      doToggleDropdown({
+        that: currentInstance,
+        win: window,
+        props,
+        setupRef
+      })
+    const onPaste = e =>
+      doOnPaste({ e, that: currentInstance, win: window, setupRef })
+    const onCompositionstart = () => console.log('正在输入中文')
+    const compositionend = () =>
+      onCompositionEnd({
+        win: window,
+        setupRef
+      })
+    const stopPreventMousedown = withModifiers(() => true, ['stop', 'prevent'])
+
+    return () =>
+      h(
+        'div',
+        {
+          ref: 'symbolEditorEle',
+          class: 'btp-textarea-symbol'
+        },
+        [
+          h('div', {
+            ref: 'editorEle',
+            class: 'btp-textarea-symbol__editor',
+            ...(isVue2
+              ? {
+                  attrs: { contenteditable: true },
+                  on: {
+                    keyup: onKeyup,
+                    keydown: onKeydown,
+                    blur: onBlur,
+                    mouseup: onMouseup,
+                    paste: onPaste,
+                    compositionstart: onCompositionstart,
+                    compositionend
+                  }
+                }
+              : {
+                  contenteditable: true,
+                  onKeyup,
+                  onKeydown,
+                  onBlur,
+                  onMouseup,
+                  onPaste,
+                  onCompositionstart,
+                  onCompositionEnd: compositionend
+                })
+          }),
+          h(
+            'div',
+            {
+              ref: 'dropdownEle',
+              class: 'btp-textarea-symbol__dropdown',
+              style: [
+                dropdownPos.value,
+                { visibility: isShowDropdown.value ? 'visible' : 'hidden' }
+              ],
+              ...(isVue2
+                ? {
+                    on: {
+                      mousedown: stopPreventMousedown
+                    }
+                  }
+                : {
+                    onMousedown: stopPreventMousedown
+                  })
+            },
+            [
+              h('div', { class: 'btp-scrollbar' }, [
+                h(
+                  'div',
+                  {
+                    class: 'btp-scrollbar__wrap btp-dropdown__wrap'
+                  },
+                  [
+                    h(
+                      'ul',
+                      {
+                        class: 'btp-dropdown__list'
+                      },
+                      list.value.map((item, i) =>
+                        h(
+                          'li',
+                          {
+                            key: item.id,
+                            class: [
+                              'btp-dropdown__item',
+                              { active: activeIndex.value == i }
+                            ],
+
+                            ...(isVue2
+                              ? {
+                                  on: {
+                                    mousedown: e =>
+                                      onLiMousedown({
+                                        e,
+                                        data: item,
+                                        that: currentInstance,
+                                        win: window,
+                                        setupRef
+                                      })
+                                  }
+                                }
+                              : {
+                                  onMousedown: e =>
+                                    onLiMousedown({
+                                      e,
+                                      data: item,
+                                      that: currentInstance,
+                                      win: window,
+                                      setupRef
+                                    })
+                                })
+                          },
+                          [
+                            h(
+                              item.componentName || 'span',
+                              item.componentProps || {},
+                              item.label
+                            )
+                          ]
+                        )
+                      )
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ]
+      )
   }
 })
 

@@ -91,5 +91,11 @@ module.exports = {
       }
     }
   ],
-  ignorePatterns: ['node_modules/', 'dist/', 'coverage/', 'pnpm-lock.yaml']
+  ignorePatterns: [
+    'node_modules/',
+    'dist/',
+    'coverage/',
+    'pnpm-lock.yaml',
+    'examples'
+  ]
 }

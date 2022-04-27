@@ -27,6 +27,7 @@ specifiers:
   inquirer: ^8.2.2
   jsdom: ^19.0.0
   lint-staged: ^12.3.7
+  lodash-es: ^4.17.21
   mkdir-file-tree-md: ^1.0.1
   np: ^7.4.0
   prettier: ^2.1.2
@@ -41,6 +42,7 @@ specifiers:
   vue2: npm:vue@2
 
 dependencies:
+  lodash-es: 4.17.21
   vue-demi: 0.12.5_69712b4db02ac17f8d9b2543df878f55
 
 devDependencies:
@@ -4429,6 +4431,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.isequal/4.5.0:
     resolution: {integrity: sha1-QVxEePK8wwEgwizhDtMib30+GOA=}
