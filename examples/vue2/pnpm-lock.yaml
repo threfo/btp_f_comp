@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@belloai/comp': ^0.0.6
+  '@belloai/comp': ^0.0.7
   '@vue/cli-plugin-babel': ~4.4.4
   '@vue/cli-plugin-typescript': ~4.4.4
   '@vue/cli-service': ~4.4.4
@@ -13,7 +13,7 @@ specifiers:
   vue-template-compiler: ^2.6.11
 
 dependencies:
-  '@belloai/comp': 0.0.6_vue@2.6.14
+  '@belloai/comp': 0.0.7_vue@2.6.14
   core-js: 3.22.2
   vue: 2.6.14
   vue-class-component: 7.2.6_vue@2.6.14
@@ -1215,8 +1215,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@belloai/comp/0.0.6_vue@2.6.14:
-    resolution: {integrity: sha512-UhcVDxQAEy17K15DbRnpRZTT8W9kDdDxLF+qXvObD6ERXJygG73kw2xXVeozPMrHZTZk1S+xgDs0Zo4LlO70ww==}
+  /@belloai/comp/0.0.7_vue@2.6.14:
+    resolution: {integrity: sha512-/zzp6RDbmZwqtnJbPBdM7PHVI2Mtoqq0fGx4jIsLoj3PS87zPWboI8hXsrG208nKdn8QuAb2VrX0c6SwtaB2bg==}
     engines: {node: ^12 || >=14, pnpm: ^6 || >=5}
     peerDependencies:
       '@vue/composition-api': ^1.1.0
@@ -1227,6 +1227,7 @@ packages:
       vue:
         optional: true
     dependencies:
+      lodash-es: 4.17.21
       vue: 2.6.14
       vue-demi: 0.12.5_vue@2.6.14
     dev: false
@@ -5184,6 +5185,10 @@ packages:
     dependencies:
       p-locate: 4.1.0
     dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha1-gteb/zCmfEAF/9XiUVMArZyk168=}

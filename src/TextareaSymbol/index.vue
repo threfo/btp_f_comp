@@ -140,9 +140,7 @@ const comp = defineComponent({
     const initEditor = () =>
       h('div', {
         ref: 'editorEle',
-        props: {
-          class: 'btp-textarea-symbol__editor'
-        },
+        class: 'btp-textarea-symbol__editor',
 
         attrs: { contenteditable: true },
         on: {
@@ -162,9 +160,7 @@ const comp = defineComponent({
           'li',
           {
             key: item.id,
-            props: {
-              class: ['btp-dropdown__item', { active: activeIndex.value == i }]
-            },
+            class: ['btp-dropdown__item', { active: activeIndex.value == i }],
             on: {
               mousedown: (e: Event) =>
                 onLiMousedown({

@@ -5,7 +5,7 @@ import Comp from './index.vue'
 describe('src/TextareaSymbol/index.vue', () => {
   it('Comp', () => {
     expect(Comp).toBeDefined()
-    //     const wrapper = mount(Comp as any)
-    //     expect(wrapper.find('.btp-textarea-symbol').exists()).toBe(true)
+    // const wrapper = mount(Comp as any)
+    // expect(wrapper.find('.btp-textarea-symbol').exists()).toBe(true)
   })
 })
