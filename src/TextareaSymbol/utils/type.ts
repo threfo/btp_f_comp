@@ -50,7 +50,7 @@ export interface _Event {
 }
 
 export interface _That {
-  that: ComponentInternalInstance
+  that: ComponentInternalInstance | null
 }
 
 export interface _Win {

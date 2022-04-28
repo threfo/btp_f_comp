@@ -25,7 +25,7 @@
     "dev:2": "vue-demi-switch 2 vue2 && vitepress-fc dev --root=docs --host",
     "build": "vite build && pnpm run type",
     "type": "vue-tsc --declaration --emitDeclarationOnly",
-    "test:2": "vue-demi-switch 2 vue2 && vitest run --silent",
+    "test:2": "vue-demi-switch 2 vue2 @vue/test-utils2 && vitest run --silent",
     "test:3": "vue-demi-switch 3 && vitest run",
     "test": "pnpm run test:2 && pnpm run test:3",
     "test:watch": "vitest --watch",
@@ -76,7 +76,8 @@
     "vitest": "^0.9.3",
     "vue": "^3.0.0",
     "vue-tsc": "^0.29.2",
-    "vue2": "npm:vue@2"
+    "vue2": "npm:vue@2",
+    "@vue/test-utils2": "npm:@vue/test-utils@1"
   },
   "keywords": [
     "vue",
@@ -102,7 +103,8 @@
   "lint-staged": {
     "*.{js,vue,ts,jsx,tsx}": [
       "prettier --write",
-      "eslint --fix"
+      "eslint --fix",
+      "pnpm test"
     ],
     "*.{html,css,less,scss,md}": [
       "prettier --write"

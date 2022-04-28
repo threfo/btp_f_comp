@@ -5,11 +5,12 @@ import {
   getCurrentInstance,
   ref,
   watch,
-  h,
   withModifiers,
   nextTick,
   Ref
 } from 'vue-demi'
+
+import h from '../utils/h-demi'
 
 import {
   onInputKeyDown,
@@ -32,38 +33,39 @@ import {
   SetupRef
 } from './utils/type'
 
+const compProps: any = {
+  watchSymbolsPolicy: {
+    type: Array,
+    required: true
+  }
+}
+
+if (isVue2) {
+  compProps.value = {
+    type: Array,
+    default: () => []
+  }
+} else {
+  compProps.modelValue = {
+    type: Array,
+    default: () => []
+  }
+}
+
 const comp = defineComponent({
   name: 'TextareaSymbol',
-  props: {
-    watchSymbolsPolicy: {
-      type: Array,
-      required: true
-    },
-    ...(isVue2
-      ? {
-          value: {
-            type: Array,
-            default: () => []
-          }
-        }
-      : {
-          modelValue: {
-            type: Array,
-            default: () => []
-          }
-        })
-  },
+  props: compProps,
   setup(props, { emit }) {
     const currentInstance = getCurrentInstance()
 
     const list: Ref<DropdownListItem[]> = ref([])
     const activeIndex: Ref<number> = ref(0)
-    const dropdownPos: Ref<DropdownPos> = ref({})
+    const dropdownPos: Ref<DropdownPos> = ref({ top: '0', left: '0' })
     const isShowDropdown: Ref<boolean> = ref(false)
     const editorValue: Ref<EditorValueItem[]> = ref([])
     const preventKeyUp: Ref<boolean> = ref(false)
     const symbolsPolicy: Ref<SymbolsPolicy | null> = ref(null)
-    const editorRange: Ref<EditorRange> = ref(null)
+    const editorRange: Ref<EditorRange | null> = ref(null)
 
     const setupRef: SetupRef = {
       list,
@@ -81,10 +83,8 @@ const comp = defineComponent({
       newValue => {
         if (JSON.stringify(newValue) !== JSON.stringify(editorValue.value)) {
           nextTick(() => {
-            const value = props[isVue2 ? 'value' : 'modelValue']
-
             initEditorEle({
-              value,
+              value: newValue,
               doc: window.document,
               that: currentInstance,
               setupRef
@@ -101,7 +101,7 @@ const comp = defineComponent({
       emit(isVue2 ? 'update' : 'update:modelValue', newValue)
     })
 
-    const onKeyup = e =>
+    const onKeyup = (e: Event) =>
       onInputText({
         e,
         that: currentInstance,
@@ -109,7 +109,7 @@ const comp = defineComponent({
         props,
         setupRef
       })
-    const onKeydown = e =>
+    const onKeydown = (e: Event) =>
       onInputKeyDown({
         e,
         that: currentInstance,
@@ -124,7 +124,7 @@ const comp = defineComponent({
         props,
         setupRef
       })
-    const onPaste = e =>
+    const onPaste = (e: Event) =>
       doOnPaste({ e, that: currentInstance, win: window, setupRef })
     const onCompositionstart = () => console.log('正在输入中文')
     const compositionend = () =>
@@ -132,7 +132,65 @@ const comp = defineComponent({
         win: window,
         setupRef
       })
-    const stopPreventMousedown = withModifiers(() => true, ['stop', 'prevent'])
+
+    let stopPreventMousedown: any
+    if (withModifiers) {
+      stopPreventMousedown = withModifiers(() => true, ['stop', 'prevent'])
+    } else {
+      stopPreventMousedown = (e: Event) => {
+        e.stopPropagation()
+        e.preventDefault()
+      }
+    }
+
+    const initEditor = () =>
+      h('div', {
+        ref: 'editorEle',
+        props: {
+          class: 'btp-textarea-symbol__editor'
+        },
+
+        attrs: { contenteditable: true },
+        on: {
+          keyup: onKeyup,
+          keydown: onKeydown,
+          blur: onBlur,
+          mouseup: onMouseup,
+          paste: onPaste,
+          compositionstart: onCompositionstart,
+          compositionend
+        }
+      })
+
+    const initLi = () =>
+      list.value.map((item, i) =>
+        h(
+          'li',
+          {
+            key: item.id,
+            props: {
+              class: ['btp-dropdown__item', { active: activeIndex.value == i }]
+            },
+            on: {
+              mousedown: (e: Event) =>
+                onLiMousedown({
+                  e,
+                  data: item,
+                  that: currentInstance,
+                  win: window,
+                  setupRef
+                })
+            }
+          },
+          [
+            h(
+              item.componentName || 'span',
+              item.componentProps || {},
+              item.label
+            )
+          ]
+        )
+      )
 
     return () =>
       h(
@@ -142,33 +200,7 @@ const comp = defineComponent({
           class: 'btp-textarea-symbol'
         },
         [
-          h('div', {
-            ref: 'editorEle',
-            class: 'btp-textarea-symbol__editor',
-            ...(isVue2
-              ? {
-                  attrs: { contenteditable: true },
-                  on: {
-                    keyup: onKeyup,
-                    keydown: onKeydown,
-                    blur: onBlur,
-                    mouseup: onMouseup,
-                    paste: onPaste,
-                    compositionstart: onCompositionstart,
-                    compositionend
-                  }
-                }
-              : {
-                  contenteditable: true,
-                  onKeyup,
-                  onKeydown,
-                  onBlur,
-                  onMouseup,
-                  onPaste,
-                  onCompositionstart,
-                  onCompositionEnd: compositionend
-                })
-          }),
+          initEditor(),
           h(
             'div',
             {
@@ -178,15 +210,9 @@ const comp = defineComponent({
                 dropdownPos.value,
                 { visibility: isShowDropdown.value ? 'visible' : 'hidden' }
               ],
-              ...(isVue2
-                ? {
-                    on: {
-                      mousedown: stopPreventMousedown
-                    }
-                  }
-                : {
-                    onMousedown: stopPreventMousedown
-                  })
+              on: {
+                mousedown: stopPreventMousedown
+              }
             },
             [
               h('div', { class: 'btp-scrollbar' }, [
@@ -201,49 +227,7 @@ const comp = defineComponent({
                       {
                         class: 'btp-dropdown__list'
                       },
-                      list.value.map((item, i) =>
-                        h(
-                          'li',
-                          {
-                            key: item.id,
-                            class: [
-                              'btp-dropdown__item',
-                              { active: activeIndex.value == i }
-                            ],
-
-                            ...(isVue2
-                              ? {
-                                  on: {
-                                    mousedown: e =>
-                                      onLiMousedown({
-                                        e,
-                                        data: item,
-                                        that: currentInstance,
-                                        win: window,
-                                        setupRef
-                                      })
-                                  }
-                                }
-                              : {
-                                  onMousedown: e =>
-                                    onLiMousedown({
-                                      e,
-                                      data: item,
-                                      that: currentInstance,
-                                      win: window,
-                                      setupRef
-                                    })
-                                })
-                          },
-                          [
-                            h(
-                              item.componentName || 'span',
-                              item.componentProps || {},
-                              item.label
-                            )
-                          ]
-                        )
-                      )
+                      initLi()
                     )
                   ]
                 )
@@ -256,7 +240,6 @@ const comp = defineComponent({
 })
 
 comp.initSymbolsPolicy = initSymbolsPolicy
-
 export default comp
 </script>
 
