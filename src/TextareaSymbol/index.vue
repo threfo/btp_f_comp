@@ -5,7 +5,6 @@ import {
   getCurrentInstance,
   ref,
   watch,
-  withModifiers,
   nextTick,
   Ref
 } from 'vue-demi'
@@ -133,14 +132,9 @@ const comp = defineComponent({
         setupRef
       })
 
-    let stopPreventMousedown: any
-    if (withModifiers) {
-      stopPreventMousedown = withModifiers(() => true, ['stop', 'prevent'])
-    } else {
-      stopPreventMousedown = (e: Event) => {
-        e.stopPropagation()
-        e.preventDefault()
-      }
+    const stopPreventMousedown = (e: Event) => {
+      e.stopPropagation()
+      e.preventDefault()
     }
 
     const initEditor = () =>

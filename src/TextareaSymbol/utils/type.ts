@@ -87,6 +87,7 @@ export type EventThatWinProps = EventThatWin & _Props
 export type EventThatWinSetupRef = EventThatWin & _SetupRef
 export type EventThatWinPropsSetupRef = EventThatWinProps & _SetupRef
 
+export type ThatSetupRef = _That & _SetupRef
 export type ThatWinSetupRef = _That & _Win & _SetupRef
 export type ThatWinPropsSetupRef = ThatWinSetupRef & _Props
 

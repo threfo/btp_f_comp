@@ -15,13 +15,17 @@ import {
   ThatWinSetupRef,
   ShowSearchDropdownProps,
   InsertHtmlAtCaretProps,
-  InsertHtmlProps
+  InsertHtmlProps,
+  ThatSetupRef
 } from './type'
 
 import { nextTick, toRefs, Ref, ComponentInternalInstance } from 'vue-demi'
 
-export const getRefEle = (that: ComponentInternalInstance, key: string) => {
-  const { refs } = that
+export const getRefEle = (
+  that: ComponentInternalInstance | null,
+  key: string
+) => {
+  const { refs } = that || {}
 
   const thatRef = refs || {}
 
@@ -448,13 +452,7 @@ export const insertHtml = ({
   }
 }
 
-export const updateEditorValue = ({
-  that,
-  setupRef
-}: {
-  that: ComponentInternalInstance
-  setupRef: SetupRef
-}) => {
+export const updateEditorValue = ({ that, setupRef }: ThatSetupRef) => {
   const res = getMsgStructure(getRefEle(that, 'editorEle'))
   // console.log('updateEditorValue res', res)
   const { editorValue } = setupRef
