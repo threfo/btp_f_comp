@@ -9,7 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@belloai/comp": "latest",
+    "@belloai/comp": "^0.0.14",
     "@vue/composition-api": "^1.6.1",
     "core-js": "^3.19.3",
     "nuxt": "^2.15.8",

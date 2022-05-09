@@ -1,8 +1,14 @@
 <script lang="ts">
-// eslint-disable-next-line no-restricted-imports
-import { defineComponent, getCurrentInstance, onMounted, ref } from 'vue-demi'
+/* eslint-disable no-restricted-imports */
+import {
+  defineComponent,
+  getCurrentInstance,
+  onMounted,
+  ref,
+  isVue2
+} from 'vue-demi'
 
-import h, { runSlot } from '../utils/h-demi'
+import demiH, { runSlot } from '../utils/h-demi'
 
 // 建议使用 render 的模式编写组件 这样在vue2 和 vue3 兼容层面会更简单一点
 // vue2 render https://cn.vuejs.org/v2/guide/render-function.html
@@ -56,9 +62,11 @@ export default defineComponent({
 
     return {}
   },
-  render() {
+  render(createElement: any) {
     const slot = this.$slots.default ? runSlot(this.$slots.default) : []
     const { poster, sources } = this
+
+    const h = isVue2 ? createElement : demiH
     return h(
       'div',
       {
