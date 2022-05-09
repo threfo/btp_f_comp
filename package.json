@@ -11,7 +11,7 @@
     },
     "./*": "./*"
   },
-  "style": "dist/index.css",
+  "style": "dist/style.css",
   "types": "dist/src/index.d.ts",
   "files": [
     "src",

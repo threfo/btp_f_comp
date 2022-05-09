@@ -13,7 +13,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     vue({
-      isProduction: false
+      ssr: true
     }),
     vueJsx()
   ],
