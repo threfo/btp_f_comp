@@ -11,7 +11,12 @@ import { defineConfig } from 'vite'
  * @type {import('vite').UserConfig}
  */
 export default defineConfig({
-  plugins: [vue(), vueJsx()],
+  plugins: [
+    vue({
+      isProduction: false
+    }),
+    vueJsx()
+  ],
   optimizeDeps: {
     include: [],
     exclude: ['vue-demi']
