@@ -25,7 +25,7 @@ const h = (type: string | any, options: Options & any = {}, chidden?: any) => {
   return hDemi(type, params, chidden)
 }
 
-const runSlot = (defaultSlots: any) => {
+export const runSlot = (defaultSlots: any) => {
   if (typeof defaultSlots == 'function') return defaultSlots()
   return defaultSlots
 }

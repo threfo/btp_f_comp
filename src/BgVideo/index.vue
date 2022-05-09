@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-restricted-imports
 import { defineComponent, getCurrentInstance, onMounted, ref } from 'vue-demi'
 
-import h, { getSlot } from '../utils/h-demi'
+import h, { runSlot } from '../utils/h-demi'
 
 // 建议使用 render 的模式编写组件 这样在vue2 和 vue3 兼容层面会更简单一点
 // vue2 render https://cn.vuejs.org/v2/guide/render-function.html
@@ -21,7 +21,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props, cxt) {
+  setup() {
     const currentInstance = getCurrentInstance()
 
     const isPlaying = ref(false)
@@ -54,55 +54,59 @@ export default defineComponent({
       checkPaly()
     })
 
-    return () =>
-      h(
-        'div',
-        {
-          class: 'btp-bg-video'
-        },
-        [
-          h(
-            'div',
-            {
-              style: {
-                'z-index': 1
-              }
+    return {}
+  },
+  render() {
+    const slot = this.$slots.default ? runSlot(this.$slots.default) : []
+    const { poster, sources } = this
+    return h(
+      'div',
+      {
+        class: 'btp-bg-video'
+      },
+      [
+        h(
+          'div',
+          {
+            style: {
+              'z-index': 1
+            }
+          },
+          slot || []
+        ),
+        h(
+          'video',
+          {
+            ref: 'video',
+            style: {
+              inset: '-100%'
             },
-            getSlot(cxt)
-          ),
-          h(
-            'video',
-            {
-              ref: 'video',
-              style: {
-                inset: '-100%'
-              },
-              attrs: {
-                poster: props.poster,
-                autoplay: true,
-                loop: 'loop',
-                muted: true,
-                preload: 'auto',
-                'webkit-playsinline': true,
-                playsinline: 'true',
-                'x-webkit-airplay': 'allow',
-                'x5-video-player-type': 'h5',
-                'x5-video-player-fullscreen': true,
-                'x5-video-orientation': 'portraint'
-              }
-            },
-            [
-              props.sources.map((src: string) =>
-                h('source', {
-                  attrs: {
-                    src
-                  }
-                })
-              )
-            ]
-          )
-        ]
-      )
+            attrs: {
+              poster,
+              autoplay: true,
+              loop: 'loop',
+              muted: true,
+              preload: 'auto',
+              'webkit-playsinline': true,
+              playsinline: 'true',
+              'x-webkit-airplay': 'allow',
+              'x5-video-player-type': 'h5',
+              'x5-video-player-fullscreen': true,
+              'x5-video-orientation': 'portraint'
+            }
+          },
+          [
+            sources.map((src: string) =>
+              h('source', {
+                attrs: {
+                  src
+                }
+              })
+            )
+          ]
+        )
+      ]
+    )
   }
 })
 </script>
