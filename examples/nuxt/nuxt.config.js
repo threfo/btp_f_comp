@@ -1,3 +1,5 @@
+const publicPath = process.env.PUBLIC_PATH || '/_nuxt/'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -33,5 +35,9 @@ export default {
   modules: [],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+
+  build: {
+    publicPath,
+    transpile: [/^@belloai\/comp/]
+  }
 }
