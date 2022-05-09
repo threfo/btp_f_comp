@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@belloai/comp': ^0.0.7
+  '@belloai/comp': ^0.0.9
   '@vue/cli-plugin-babel': ~4.4.4
   '@vue/cli-plugin-typescript': ~4.4.4
   '@vue/cli-service': ~4.4.4
@@ -13,7 +13,7 @@ specifiers:
   vue-template-compiler: ^2.6.11
 
 dependencies:
-  '@belloai/comp': 0.0.7_vue@2.6.14
+  '@belloai/comp': 0.0.9_vue@2.6.14
   core-js: 3.22.2
   vue: 2.6.14
   vue-class-component: 7.2.6_vue@2.6.14
@@ -1215,8 +1215,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@belloai/comp/0.0.7_vue@2.6.14:
-    resolution: {integrity: sha512-/zzp6RDbmZwqtnJbPBdM7PHVI2Mtoqq0fGx4jIsLoj3PS87zPWboI8hXsrG208nKdn8QuAb2VrX0c6SwtaB2bg==}
+  /@belloai/comp/0.0.9_vue@2.6.14:
+    resolution: {integrity: sha512-ouMt0MLBQAJPZ1gVXKoMevguEMFiNOwxfddpvEx8qGFrBie6KAwsvOLx6yit4M9+XWdq/eapWri4i/hqUPvY3A==}
     engines: {node: ^12 || >=14, pnpm: ^6 || >=5}
     peerDependencies:
       '@vue/composition-api': ^1.1.0

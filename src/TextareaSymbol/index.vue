@@ -198,7 +198,7 @@ const comp = defineComponent({
               class: 'btp-textarea-symbol__dropdown',
               style: [
                 dropdownPos.value,
-                { visibility: isShowDropdown.value ? 'visible' : 'hidden' }
+                { display: isShowDropdown.value ? 'block' : 'none' }
               ],
               on: {
                 mousedown: stopPreventMousedown
@@ -234,25 +234,6 @@ export default comp
 </script>
 
 <style lang="scss">
-.btp-textarea-symbol__editor {
-  button {
-    max-width: 10rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
-  }
-  button,
-  button:hover {
-    padding: 0.125rem;
-    border: none;
-    font-weight: 600;
-    color: #409eff;
-  }
-}
-</style>
-
-<style lang="scss" scoped>
 .btp-textarea-symbol {
   &__editor {
     background-color: #fff;
@@ -261,7 +242,7 @@ export default comp
     border: 1px solid #dcdfe6;
     box-sizing: border-box;
     color: #606266;
-    display: inline-block;
+    display: block;
     font-size: inherit;
     height: auto;
     min-height: 40px;
@@ -276,6 +257,21 @@ export default comp
       outline: none;
       border-color: #409eff;
     }
+
+    button {
+      max-width: 10rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    button,
+    button:hover {
+      padding: 0.125rem;
+      border: none;
+      font-weight: 600;
+      color: #409eff;
+    }
   }
 
   &__dropdown {
@@ -289,42 +285,42 @@ export default comp
     box-sizing: border-box;
     margin: 5px 0;
   }
-}
 
-.btp-scrollbar {
-  overflow: hidden;
-  position: relative;
-  &__wrap {
-    overflow: auto;
-    height: 100%;
-  }
-}
-.btp-dropdown {
-  &__wrap {
-    max-height: 17.125rem;
-  }
-  &__list {
-    list-style: none;
-    padding: 6px 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  &__item {
-    font-size: 14px;
-    padding: 0 20px;
-    position: relative;
-    white-space: nowrap;
+  .btp-scrollbar {
     overflow: hidden;
-    text-overflow: ellipsis;
-    color: #606266;
-    height: 34px;
-    line-height: 34px;
-    box-sizing: border-box;
-    cursor: pointer;
+    position: relative;
+    &__wrap {
+      overflow: auto;
+      height: 100%;
+    }
+  }
+  .btp-dropdown {
+    &__wrap {
+      max-height: 17.125rem;
+    }
+    &__list {
+      list-style: none;
+      padding: 6px 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    &__item {
+      font-size: 14px;
+      padding: 0 20px;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #606266;
+      height: 34px;
+      line-height: 34px;
+      box-sizing: border-box;
+      cursor: pointer;
 
-    &.active,
-    :hover {
-      background-color: #f5f7fa;
+      &.active,
+      :hover {
+        background-color: #f5f7fa;
+      }
     }
   }
 }

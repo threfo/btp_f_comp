@@ -107,7 +107,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .btp-bg-video {
   @apply relative overflow-hidden;
   video {

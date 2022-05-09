@@ -3,13 +3,21 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
     <TextareaSymbol :watch-symbols-policy="watchSymbolsPolicy" />
+
+    <BgVideo
+      style="height: 300px"
+      :sources="[
+        'https://assets.belloai.com/62285820fe60122b4d5bb769/都市.mp4'
+      ]"
+      poster="https://assets.belloai.com/6228586afe60122b4d5bb76e/都市-0001.jpeg"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import HelloWorld from './components/HelloWorld.vue'
-import { TextareaSymbol } from '@belloai/comp'
+import { TextareaSymbol, BgVideo } from '@belloai/comp'
 
 const initWatchSymbolsPolicy = (initSymbolsPolicy: any) => {
   return [
@@ -41,7 +49,8 @@ const watchSymbolsPolicy = initWatchSymbolsPolicy(
 @Component({
   components: {
     HelloWorld,
-    TextareaSymbol
+    TextareaSymbol,
+    BgVideo
   },
   data() {
     return {

@@ -1,9 +1,11 @@
 <template>
   <div>
-    <TextareaSymbol
-      v-model="value"
-      :watch-symbols-policy="watchSymbolsPolicy"
-    />
+    <div>
+      <TextareaSymbol
+        v-model="value"
+        :watch-symbols-policy="watchSymbolsPolicy"
+      />
+    </div>
 
     <br />
     <button @click="showValue = !showValue">
@@ -33,11 +35,7 @@ export default {
           type: 'symbol',
           data: { id: '0', label: 'person 0 ', type: 'person', symbol: '@' }
         },
-        { type: 'text', data: '​asdf' },
-        {
-          type: 'symbol',
-          data: { id: '0', label: 'topic 0 ', type: 'topic', symbol: '#' }
-        }
+        { type: 'text', data: '​asdf' }
       ],
       watchSymbolsPolicy: [
         {
