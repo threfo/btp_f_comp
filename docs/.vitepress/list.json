@@ -4,5 +4,11 @@
     "compZhName": "特殊符号提示输入框",
     "compDesc": "当输入定义的特殊符号时会把符号后的内容请求对应的api提供内容选择",
     "compClassName": "textarea-symbol"
+  },
+  {
+    "compName": "BgVideo",
+    "compZhName": "背景视频播放",
+    "compDesc": "可以在背景视频播放",
+    "compClassName": "bg-video"
   }
 ]

@@ -1,4 +1,4 @@
-import { h as hDemi, isVue2 } from 'vue-demi'
+import { h as hDemi, isVue2, SetupContext } from 'vue-demi'
 
 interface Options {
   props?: any
@@ -23,6 +23,16 @@ const h = (type: string | any, options: Options & any = {}, chidden?: any) => {
   const ons = adaptOnsV3(on)
   const params = { ...extraOptions, ...props, ...attrs, ...domProps, ...ons }
   return hDemi(type, params, chidden)
+}
+
+const runSlot = (defaultSlots: any) => {
+  if (typeof defaultSlots == 'function') return defaultSlots()
+  return defaultSlots
+}
+
+export const getSlot = (cxt: SetupContext, slotName = 'default') => {
+  const slot = (cxt?.slots || {})[slotName]
+  return runSlot(slot) || []
 }
 
 export default h
