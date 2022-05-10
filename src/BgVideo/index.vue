@@ -1,11 +1,6 @@
 <script lang="ts">
 /* eslint-disable no-restricted-imports */
-import {
-  defineComponent,
-  getCurrentInstance,
-  onMounted,
-  isVue2
-} from 'vue-demi'
+import { defineComponent, isVue2 } from 'vue-demi'
 
 import demiH, { runSlot } from '../utils/h-demi'
 
@@ -15,6 +10,14 @@ import demiH, { runSlot } from '../utils/h-demi'
 // vue3 setup 组合式函数 https://staging-cn.vuejs.org/guide/reusability/composables.html#extracting-composables-for-code-organization
 
 let checkPlaying = false
+
+const sleep = (s: number) => {
+  return new Promise((r: any) => {
+    setTimeout(() => {
+      r()
+    }, s)
+  })
+}
 
 export default defineComponent({
   name: 'BgVideo',
@@ -28,24 +31,17 @@ export default defineComponent({
       required: true
     }
   },
-  setup() {
-    const currentInstance = getCurrentInstance()
-
-    const sleep = (s: number) => {
-      return new Promise((r: any) => {
-        setTimeout(() => {
-          r()
-        }, s)
-      })
-    }
-
-    const checkPlay = async () => {
+  async mounted() {
+    await this.checkPlay()
+  },
+  methods: {
+    async checkPlay() {
       if (checkPlaying) {
         return
       }
 
       checkPlaying = true
-      const refVideo = currentInstance?.refs?.video as any
+      const refVideo = this?.$refs?.video as any
       const s1 = refVideo?.currentTime
       await sleep(1500)
       const s2 = refVideo?.currentTime
@@ -56,20 +52,12 @@ export default defineComponent({
       }
       console.warn('not auto play, try to play')
       refVideo?.play()
-      await checkPlay()
-    }
-
-    onMounted(async () => {
-      await checkPlay()
-    })
-
-    return {
-      checkPlay
+      await this.checkPlay()
     }
   },
   render(createElement: any) {
     const slot = this.$slots.default ? runSlot(this.$slots.default) : []
-    const { poster, sources, checkPlay } = this
+    const { poster, sources } = this
 
     const h = isVue2 ? createElement : demiH
     return h(
@@ -85,9 +73,7 @@ export default defineComponent({
               'z-index': 1
             },
             on: {
-              mouseover: () => {
-                checkPlay()
-              }
+              mouseover: this.checkPlay
             }
           },
           slot || []
