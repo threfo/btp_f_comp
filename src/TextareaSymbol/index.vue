@@ -9,7 +9,7 @@ import {
   Ref
 } from 'vue-demi'
 
-import h from '../utils/h-demi'
+import demiH from '../utils/h-demi'
 
 import {
   onInputKeyDown,
@@ -137,6 +137,50 @@ const comp = defineComponent({
       e.preventDefault()
     }
 
+    const liMousedown = (e: Event, item: any) =>
+      onLiMousedown({
+        e,
+        data: item,
+        that: currentInstance,
+        win: window,
+        setupRef
+      })
+
+    return {
+      stopPreventMousedown,
+      compositionend,
+      onCompositionstart,
+      onPaste,
+      onMouseup,
+      onBlur,
+      onKeydown,
+      onKeyup,
+      liMousedown,
+      dropdownPos,
+      isShowDropdown,
+      list,
+      activeIndex
+    }
+  },
+  render(createElement: any) {
+    const h = isVue2 ? createElement : demiH
+
+    const {
+      stopPreventMousedown,
+      compositionend,
+      onCompositionstart,
+      onPaste,
+      onMouseup,
+      onBlur,
+      onKeydown,
+      onKeyup,
+      liMousedown,
+      dropdownPos,
+      isShowDropdown,
+      list,
+      activeIndex
+    } = this
+
     const initEditor = () =>
       h('div', {
         ref: 'editorEle',
@@ -155,21 +199,14 @@ const comp = defineComponent({
       })
 
     const initLi = () =>
-      list.value.map((item, i) =>
+      list.map((item, i) =>
         h(
           'li',
           {
             key: item.id,
-            class: ['btp-dropdown__item', { active: activeIndex.value == i }],
+            class: ['btp-dropdown__item', { active: activeIndex == i }],
             on: {
-              mousedown: (e: Event) =>
-                onLiMousedown({
-                  e,
-                  data: item,
-                  that: currentInstance,
-                  win: window,
-                  setupRef
-                })
+              mousedown: (e: Event) => liMousedown(e, item)
             }
           },
           [
@@ -181,51 +218,49 @@ const comp = defineComponent({
           ]
         )
       )
-
-    return () =>
-      h(
-        'div',
-        {
-          ref: 'symbolEditorEle',
-          class: 'btp-textarea-symbol'
-        },
-        [
-          initEditor(),
-          h(
-            'div',
-            {
-              ref: 'dropdownEle',
-              class: 'btp-textarea-symbol__dropdown',
-              style: [
-                dropdownPos.value,
-                { display: isShowDropdown.value ? 'block' : 'none' }
-              ],
-              on: {
-                mousedown: stopPreventMousedown
-              }
-            },
-            [
-              h('div', { class: 'btp-scrollbar' }, [
-                h(
-                  'div',
-                  {
-                    class: 'btp-scrollbar__wrap btp-dropdown__wrap'
-                  },
-                  [
-                    h(
-                      'ul',
-                      {
-                        class: 'btp-dropdown__list'
-                      },
-                      initLi()
-                    )
-                  ]
-                )
-              ])
-            ]
-          )
-        ]
-      )
+    return h(
+      'div',
+      {
+        ref: 'symbolEditorEle',
+        class: 'btp-textarea-symbol'
+      },
+      [
+        initEditor(),
+        h(
+          'div',
+          {
+            ref: 'dropdownEle',
+            class: 'btp-textarea-symbol__dropdown',
+            style: [
+              dropdownPos,
+              { display: isShowDropdown ? 'block' : 'none' }
+            ],
+            on: {
+              mousedown: stopPreventMousedown
+            }
+          },
+          [
+            h('div', { class: 'btp-scrollbar' }, [
+              h(
+                'div',
+                {
+                  class: 'btp-scrollbar__wrap btp-dropdown__wrap'
+                },
+                [
+                  h(
+                    'ul',
+                    {
+                      class: 'btp-dropdown__list'
+                    },
+                    initLi()
+                  )
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
   }
 })
 
@@ -236,22 +271,11 @@ export default comp
 <style lang="scss">
 .btp-textarea-symbol {
   &__editor {
-    background-color: #fff;
-    background-image: none;
-    border-radius: 0.25rem;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-    color: #606266;
-    display: block;
+    @apply bg-white bg-none rounded border border-solid border-gray-300 box-border text-gray-700 block h-auto px-2.5 py-2 w-full break-words;
     font-size: inherit;
-    height: auto;
     min-height: 40px;
     line-height: 1.5;
-    outline: none;
-    padding: 0.333rem 1rem;
-    transition: rgb(118, 118, 118) 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    width: 100%;
-    overflow-wrap: break-word;
+    // outline: none;
 
     &:focus {
       outline: none;
@@ -259,39 +283,25 @@ export default comp
     }
 
     button {
+      @apply truncate inline-block;
       max-width: 10rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      display: inline-block;
     }
     button,
     button:hover {
-      padding: 0.125rem;
-      border: none;
-      font-weight: 600;
+      @apply p-1 border-0 font-semibold;
       color: #409eff;
     }
   }
 
   &__dropdown {
-    position: absolute;
+    @apply absolute border border-solid border-gray-300 rounded-sm bg-white box-border my-1 shadow;
     z-index: 1001;
-    border: 1px solid #e4e7ed;
-    border-radius: 4px;
-    background-color: #fff;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin: 5px 0;
   }
 
   .btp-scrollbar {
-    overflow: hidden;
-    position: relative;
+    @apply overflow-hidden relative;
     &__wrap {
-      overflow: auto;
-      height: 100%;
+      @apply overflow-auto h-full;
     }
   }
   .btp-dropdown {
@@ -299,27 +309,14 @@ export default comp
       max-height: 17.125rem;
     }
     &__list {
-      list-style: none;
-      padding: 6px 0;
-      margin: 0;
-      box-sizing: border-box;
+      @apply list-none py-1.5 px-0 m-0 box-border;
     }
     &__item {
-      font-size: 14px;
-      padding: 0 20px;
-      position: relative;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: #606266;
-      height: 34px;
-      line-height: 34px;
-      box-sizing: border-box;
-      cursor: pointer;
+      @apply text-sm py-0 px-5 relative truncate text-gray-600 box-border cursor-pointer leading-9;
 
       &.active,
       :hover {
-        background-color: #f5f7fa;
+        @apply bg-gray-100;
       }
     }
   }
