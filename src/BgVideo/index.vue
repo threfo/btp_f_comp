@@ -4,7 +4,6 @@ import {
   defineComponent,
   getCurrentInstance,
   onMounted,
-  ref,
   isVue2
 } from 'vue-demi'
 
@@ -14,6 +13,8 @@ import demiH, { runSlot } from '../utils/h-demi'
 // vue2 render https://cn.vuejs.org/v2/guide/render-function.html
 // vue3 render https://staging-cn.vuejs.org/guide/extras/render-function.html
 // vue3 setup 组合式函数 https://staging-cn.vuejs.org/guide/reusability/composables.html#extracting-composables-for-code-organization
+
+let checkPlaying = false
 
 export default defineComponent({
   name: 'BgVideo',
@@ -30,41 +31,45 @@ export default defineComponent({
   setup() {
     const currentInstance = getCurrentInstance()
 
-    const isPlaying = ref(false)
-
-    const playing = () => {
-      // console.log('playing')
-      isPlaying.value = true
+    const sleep = (s: number) => {
+      return new Promise((r: any) => {
+        setTimeout(() => {
+          r()
+        }, s)
+      })
     }
 
-    const checkPaly = () => {
-      console.log('checkPaly isPlaying.value', isPlaying.value)
-      setTimeout(() => {
-        console.log('checkPaly setTimeout isPlaying.value', isPlaying.value)
-        if (!isPlaying.value) {
-          const refVideo = currentInstance?.refs?.video as any
-          refVideo?.play()
-
-          checkPaly()
-        }
-      }, 3000)
-    }
-
-    onMounted(() => {
-      const refVideo = currentInstance?.refs?.video as any
-      if (refVideo) {
-        refVideo.removeEventListener('playing', playing)
-        refVideo.addEventListener('playing', playing)
+    const checkPlay = async () => {
+      if (checkPlaying) {
+        return
       }
 
-      checkPaly()
+      checkPlaying = true
+      const refVideo = currentInstance?.refs?.video as any
+      const s1 = refVideo?.currentTime
+      await sleep(1500)
+      const s2 = refVideo?.currentTime
+      checkPlaying = false
+
+      if (s1 !== s2) {
+        return
+      }
+      console.warn('not auto play, try to play')
+      refVideo?.play()
+      await checkPlay()
+    }
+
+    onMounted(async () => {
+      await checkPlay()
     })
 
-    return {}
+    return {
+      checkPlay
+    }
   },
   render(createElement: any) {
     const slot = this.$slots.default ? runSlot(this.$slots.default) : []
-    const { poster, sources } = this
+    const { poster, sources, checkPlay } = this
 
     const h = isVue2 ? createElement : demiH
     return h(
@@ -78,6 +83,11 @@ export default defineComponent({
           {
             style: {
               'z-index': 1
+            },
+            on: {
+              mouseover: () => {
+                checkPlay()
+              }
             }
           },
           slot || []
