@@ -116,13 +116,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.btp-bg-video {
-  @apply relative overflow-hidden;
-  video {
-    @apply bg-cover bg-center absolute m-auto h-full w-full object-cover;
-  }
-  > div {
-    @apply absolute inset-0 flex items-center justify-center;
-  }
-}
+@import './index.scss';
 </style>
